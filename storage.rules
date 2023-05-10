@@ -1,0 +1,38 @@
+rules_version = '2';
+
+service firebase.storage {
+  function authenticated() {
+    return request.auth != null;
+  }
+
+  function admin() {
+    return authenticated() && request.auth.token.role == 'admin'
+  }
+
+  function isCurrentUser(userId) {
+    return authenticated() && request.auth.uid == userId;
+  }
+
+  match /b/{bucket}/o {
+
+    match /{allPaths=**} {
+      allow read: if admin();
+      allow write: if admin();
+    }
+
+    match /generated/{files=**} {
+      allow read: if true;
+      allow write: if admin();
+    }
+
+    match /users/{userId=**} {
+      allow read: if authenticated();
+      allow write: if admin() || isCurrentUser(userId);
+    }
+
+    match /public/{files=**} {
+      allow read: if true;
+      allow write: if admin();
+    }
+  }
+}

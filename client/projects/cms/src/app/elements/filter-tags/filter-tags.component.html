@@ -1,0 +1,15 @@
+<mat-chip-listbox>
+  <ng-container *ngIf="items$ | async as items">
+    <ng-container *ngFor="let item of items; index as index">
+      <mat-chip *ngIf="showTag(item.value)" [removable]="true" (removed)="removeItem(items, index)">
+        {{(item.label || item.key) | transloco}}: {{displayValue(item.displayValue || item.value) | transloco}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </ng-container>
+
+  </ng-container>
+  <mat-chip *ngIf="searchValue" [removable]="true" (removed)="search.setValue('')">
+    {{'SEARCH' | transloco}}: {{searchValue}}
+    <mat-icon matChipRemove>cancel</mat-icon>
+  </mat-chip>
+</mat-chip-listbox>

@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>{{options.header | transloco:options.variables}}</h1>
+<mat-dialog-content *ngIf="options.description" [innerHTML]="options.description | transloco:options.variables | transloco"></mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    mat-button
+    [attr.aria-label]="options.negate | transloco:options.variables"
+    [mat-dialog-close]="false">
+    {{options.negate | transloco:options.variables}}
+  </button>
+  <button
+    mat-raised-button
+    tabindex="-1"
+    [color]="options.color"
+    [attr.aria-label]="options.confirm | transloco:options.variables"
+    [mat-dialog-close]="true">
+    {{options.confirm | transloco:options.variables}}
+  </button>
+</mat-dialog-actions>

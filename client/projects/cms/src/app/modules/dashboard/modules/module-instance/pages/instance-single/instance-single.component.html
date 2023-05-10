@@ -1,0 +1,50 @@
+<form *ngIf="data$ | async as data" [ngSwitch]="currentState">
+  <mat-toolbar role="heading" color="primary" class="sticky-header">
+    <span class="flex-1" *ngSwitchCase="viewState.Edit">{{ 'EDITING' | transloco }} {{ data.module.editTitleKey }}</span>
+    <span class="flex-1" *ngSwitchCase="viewState.New">{{ 'NEW' | transloco }} {{ data.module.name | transloco }}</span>
+    <span class="flex-1" *ngSwitchCase="viewState.Copy">{{ 'COPY_OF' | transloco }} {{ util.docId }}</span>
+    <ng-container *ngIf="!data.directLink">
+      <span class="hide-xs flex ai-center">
+        <a mat-button (click)="back()">{{ (data.autoSave ? 'BACK' : 'CANCEL') | transloco }}</a>&nbsp;
+      </span>
+      <span class="show-xs flex ai-center">
+        <a mat-icon-button (click)="back()" [matTooltip]="(data.autoSave ? 'BACK' : 'CANCEL') | transloco"> <mat-icon>cancel</mat-icon> </a>&nbsp;
+      </span>
+    </ng-container>
+    <span class="hide-xs flex ai-center">
+      <button *ngIf="!data.autoSave" type="submit" mat-flat-button [disabled]="formBuilderComponent?.form.invalid" [jpLoadClick]="save(data)">
+        {{ 'SAVE' | transloco }}
+      </button>
+    </span>
+    <span *ngIf="!data.autoSave" class="show-xs flex ai-center">
+      <button type="submit" mat-icon-button [disabled]="formBuilderComponent?.form.invalid" [jpLoadClick]="save(data)" [matTooltip]="'SAVE' | transloco">
+        <mat-icon>save</mat-icon>
+      </button>
+    </span>
+    <ng-container *ngIf="data.actions && currentState === viewState.Edit">
+      <button mat-icon-button [matMenuTriggerFor]="actionsMenu" [attr.aria-label]="'ACTIONS' | transloco" [matTooltip]="'ACTIONS' | transloco">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #actionsMenu="matMenu">
+        <ng-template matMenuContent>
+          <ng-container *ngFor="let action of data.actions">
+            <ng-container *ngIf="action.criteria | async as criteria">
+              <ng-container *ngIf="criteria.value === undefined || criteria.value">
+                <ng-container *ngIf="action.value | async as value">
+                  <ng-container *ngIf="action.menuStyle === false; else menuAction">
+                    <div [innerHTML]="(tac | eval : value : formBuilderComponent?.form.value) | async | jpSanitize"></div>
+                  </ng-container>
+                  <ng-template #menuAction>
+                    <div mat-menu-item [innerHTML]="(tac | eval : value : formBuilderComponent?.form.value) | async | jpSanitize"></div>
+                  </ng-template>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-template>
+      </mat-menu>
+    </ng-container>
+  </mat-toolbar>
+
+  <fb-form-builder [data]="data.formBuilder" [state]="formState" [id]="data.module.id" (valueChanges)="valueChange($event, data)"></fb-form-builder>
+</form>

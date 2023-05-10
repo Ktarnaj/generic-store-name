@@ -1,0 +1,53 @@
+:host {
+  --color: darkgrey;
+}
+
+::placeholder {
+  color: var(--color);
+  opacity: 0.8;
+}
+
+.spotlight-icon {
+  position: absolute;
+  margin-top: 5px;
+  padding: 10px;
+  min-width: 40px;
+  height: 40px;
+  pointer-events: none;
+
+  color: var(--color);
+
+  line-height: 2.5vh;
+}
+
+.spotlight-search {
+  width: 500px;
+  border-radius: 16px;
+
+  color: var(--color);
+
+  height: 40px;
+  font-size: 26px;
+
+  outline: none;
+  border: none;
+  background: rgba(255, 255, 255, .5);
+
+  padding: 5px 5px 5px 45px;
+}
+
+.option-description.option-description.option-description.option-description {
+  font-size: 0.8em;
+}
+
+.spotlight {
+  .mat-action-list {
+    overflow-y: scroll;
+  }
+}
+
+.hint {
+  opacity: 0.8;
+  font-size: 0.7em;
+}
+

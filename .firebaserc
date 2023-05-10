@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "jaspero-jms": {
+      "hosting": {
+        "cms": [
+          "jaspero-jms"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "jaspero-jms"
+  }
+}

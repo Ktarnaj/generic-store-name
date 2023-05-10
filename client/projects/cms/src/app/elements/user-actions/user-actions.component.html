@@ -1,0 +1,64 @@
+<div class="loading" *ngIf="loading; else loaded;">{{'LOADING' | transloco}}</div>
+
+<ng-template #loaded>
+  <div class="info">
+    <div class="providers" *ngIf="providers.length">
+      <div>{{'PROVIDERS' | transloco}}:</div>
+
+      <div class="providers-list">
+        <div *ngFor="let provider of providers">
+          <button mat-icon-button (jpStopPropagation)="openProvider(provider.data)">
+            <mat-icon [svgIcon]="provider.svg ? provider.svg : ''" [matTooltip]="provider.label | transloco">{{provider.icon ? provider.icon : ''}}</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="providers" *ngIf="multiFactors.length">
+      <div>{{'MULTI_FACTORS' | transloco}}:</div>
+
+      <div class="providers-list">
+        <div *ngFor="let provider of multiFactors">
+          <button mat-icon-button (jpStopPropagation)="openProvider(provider.data, 'mfa')">
+            <mat-icon [svgIcon]="provider.svg ? provider.svg : ''" [matTooltip]="provider.label | transloco">{{provider.icon ? provider.icon : ''}}</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="metadata" *ngIf="metadata">
+      <div *ngIf="metadata.creationTime">
+        <div>{{'CREATION_TIME' | transloco}}:</div>
+        <span>{{metadata.creationTime | date:'short'}}</span>
+      </div>
+      <div *ngIf="metadata.lastSignInTime">
+        <div>{{'LAST_SIGN_IN_TIME' | transloco}}:</div>
+        <span>{{metadata.lastSignInTime | date:'short'}}</span>
+      </div>
+      <div *ngIf="metadata.lastRefreshTime">
+        <div>{{'LAST_REFRESH_TIME' | transloco}}:</div>
+        <span>{{metadata.lastRefreshTime | date:'short'}}</span>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #providerDialog>
+  <h4 mat-dialog-title>{{'PROVIDER_INFORMATION' | transloco}}</h4>
+  <mat-dialog-content>
+    <table class="provider-table">
+      <tr>
+        <th>{{'KEY' | transloco}}</th>
+        <th>{{'VALUE' | transloco}}</th>
+      </tr>
+      <tr *ngFor="let item of provider.data">
+        <td>{{item.label}}</td>
+        <td>{{item.value}}</td>
+      </tr>
+    </table>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-flat-button mat-dialog-close>{{'CANCEL' | transloco}}</button>
+    <button mat-flat-button color="warn" (click)="removeProvider()">{{'REMOVE' | transloco}}</button>
+  </mat-dialog-actions>
+</ng-template>

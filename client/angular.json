@@ -1,0 +1,198 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "cms": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "changeDetection": "OnPush"
+        }
+      },
+      "root": "projects/cms",
+      "sourceRoot": "projects/cms/src",
+      "prefix": "jms",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "../public/cms",
+            "index": "projects/cms/src/index.html",
+            "main": "projects/cms/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/cms/tsconfig.app.json",
+            "assets": [
+              "projects/cms/src/favicon.ico",
+              "projects/cms/src/assets",
+              {
+                "glob": "*.min.js",
+                "input": "node_modules/tinymce",
+                "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce/themes/silver",
+                "output": "/themes/silver"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce/skins/ui/oxide",
+                "output": "/skins/ui/oxide"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce/skins/content/default",
+                "output": "/skins/content/default"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce/plugins",
+                "output": "/plugins"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce/icons/default",
+                "output": "/icons/default"
+              }
+            ],
+            "styles": [
+              "projects/cms/src/styles.scss"
+            ],
+            "scripts": [
+              "./node_modules/tinymce/tinymce.min.js",
+              {
+                "input": "node_modules/document-register-element/build/document-register-element.js",
+                "inject": true
+              }
+            ],
+            "allowedCommonJsDependencies": [
+              "firebase/app",
+              "@firebase/auth",
+              "@firebase/app",
+              "@firebase/util",
+              "@firebase/component",
+              "@firebase/performance",
+              "@firebase/functions",
+              "@firebase/firestore",
+              "file-saver",
+              "flat",
+              "json-pointer",
+              "ajv",
+              "tinymce/plugins/autolink",
+              "tinymce/plugins/lists",
+              "tinymce/plugins/fullscreen",
+              "tinymce/plugins/imagetools",
+              "tinymce/plugins/image",
+              "tinymce/plugins/wordcount",
+              "tinymce/plugins/link",
+              "tinymce/plugins/print",
+              "tinymce/plugins/code",
+              "tinymce/plugins/table",
+              "tinymce/plugins/advlist",
+              "tinymce/plugins/emoticons",
+              "@jaspero/utils",
+              "definitions"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "live": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/cms/src/environments/environment.ts",
+                  "with": "projects/cms/src/environments/environment.live.ts"
+                }
+              ],
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            },
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/cms/src/environments/environment.ts",
+                  "with": "projects/cms/src/environments/environment.prod.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "20mb",
+                  "maximumError": "30mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50kb",
+                  "maximumError": "100kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "cms:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "cms:build:production"
+            },
+            "live": {
+              "browserTarget": "cms:build:live"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "cms:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/cms/tsconfig.spec.json",
+            "assets": [
+              "projects/cms/src/favicon.ico",
+              "projects/cms/src/assets"
+            ],
+            "styles": [
+              "projects/cms/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false
+  }
+}

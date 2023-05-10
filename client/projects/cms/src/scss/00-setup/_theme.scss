@@ -1,0 +1,110 @@
+/**
+ * Theme
+ *
+ * Adjustable theme settings.
+ *
+ *============================================================================*/
+
+
+
+/* Theme
+ *============================================================================*/
+
+$colors-themes: (
+  primary: (
+    theme    : #4051B6,
+    primary  : rgba(255,255,255,1),
+    secondary: rgba(255,255,255,.8),
+    tertiary : rgba(255,255,255,.15),
+  ),
+  accent: (
+    theme    : #ff4081,
+    primary  : rgba(255,255,255,1),
+    secondary: rgba(255,255,255,.8),
+    tertiary : rgba(255,255,255,.15),
+  ),
+  warn: (
+    theme    : #dc143c,
+    primary  : rgba(255,255,255,1),
+    secondary: rgba(255,255,255,.8),
+    tertiary : rgba(255,255,255,.15),
+  ),
+  backdrop: (
+    theme    : #f6f6f6,
+    primary  : rgba(0,0,0,.9),
+    secondary: rgba(0,0,0,.7),
+    tertiary : rgba(0,0,0,.15),
+  ),
+  panel: (
+    theme    : #fff,
+    primary  : rgba(0,0,0,.9),
+    secondary: rgba(0,0,0,.7),
+    tertiary : rgba(0,0,0,.15),
+  ),
+  sidebar: (
+    width    : 256px,   /* Sidebar width (adjusting this number also changes padding-left on the main element)  */
+    width-mob: 48px,    /* Sidebar width on mobile */
+    scaling  : 16px,    /* Sidebar elements scale based on this number */
+    theme    : #ffffff, /* Sidebar background color */ /* #262626 - dark sidebar */
+    contrast : #262626, /* Sidebar text color */ /* #ffffff - dark sidebar */
+    accent   : #1C7ED6, /* Sidebar icon color */ /* #80B2ED - dark sidebar */
+    active   : #E7F5FF, /* Background color of active items in sidebar */ /* #283B54 - dark sidebar */
+    hover    : #dedede, /* Background color of hovered items in sidebar */ /* #363636 - dark sidebar */
+    position : 0,       /* Sidebar position, 0 = left, 1 = right */
+    dd-b     : #d0d0d0, /* Dropdown border color */ /* rgba(255,255,255,.3) - dark sidebar */
+    dd-b-a   : #737373, /* Dropdown border color - active */ /* white - dark sidebar */
+    border   : rgba(0,0,0,.15)
+  ),
+  table: (
+    /* Compact */
+    font-size: 12px,
+    padding: 12px,
+    border: 1px solid #D9D9D9,
+    floating-label: 0,
+    button-size: 36px,
+    button-padding: 6px,
+    form-field-padding: 0,
+    form-field-margin: 0,
+    form-field-min-width: 100px,
+    form-field-border: transparent
+
+    /* Normal */
+    /*font-size: 14px,
+    padding: 14px,
+    border: transparent,
+    floating-label: 1,
+    button-size: 48px,
+    button-padding: 16px,
+    form-field-padding: 14px,
+    form-field-margin: 14px,
+    form-field-min-width: 100px,
+    form-field-border: 1px solid #D9D9D9*/
+  )
+);
+
+
+
+/* Generating CSS variables in :root
+ *============================================================================*/
+
+:root {
+  @each $group-name, $group in $colors-themes {
+    @each $color-name, $color-value in $group {
+      --#{$group-name}-#{$color-name}: #{$color-value};
+    }
+  }
+}
+
+
+
+/* Generating theme classes
+ *============================================================================*/
+
+@each $group-name, $group in $colors-themes {
+  .#{$group-name} {
+    --theme    : var(--#{$group-name}-theme);
+    --primary  : var(--#{$group-name}-primary);
+    --secondary: var(--#{$group-name}-secondary);
+    --tertiary : var(--#{$group-name}-tertiary );
+  }
+}

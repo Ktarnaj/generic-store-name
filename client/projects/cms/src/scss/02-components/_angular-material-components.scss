@@ -1,0 +1,382 @@
+@import "../breakpoints";
+
+/**
+ * Material Design components for Angular
+ *
+ * Style overrides for Angular Material. Original elements:
+ * https://material.angular.io/
+ *
+ *============================================================================*/
+
+/**
+ * This prevents material icon text from showing when font
+ * fails to load.
+ */
+.mat-icon {
+  visibility: hidden;
+}
+
+.fonts-loaded .mat-icon {
+  visibility: unset;
+}
+
+
+/* Buttons
+ *============================================================================*/
+
+// Ripple color adjustment
+.mat-flat-button.mat-primary .mat-ripple-element,
+.mat-raised-button.mat-primary .mat-ripple-element,
+.mat-fab.mat-primary .mat-ripple-element,
+.mat-mini-fab.mat-primary .mat-ripple-element {
+  background-color: rgba(255,255,255,.15);
+}
+
+.mat-stroked-button:not(.mat-button-disabled) {
+  border-color: var(--panel-tertiary);
+}
+
+.mat-button-disabled {
+  background-color: var(--panel-theme) !important;
+  color: var(--panel-primary) !important;
+  opacity: .4;
+}
+
+
+
+/* Select
+ *============================================================================*/
+
+.mat-select-panel {
+  background-color: var(--panel-theme);
+
+  .mat-option {
+    color: var(--panel-primary);
+  }
+}
+
+
+
+/* List
+ *============================================================================*/
+
+.mdc-list-item__primary-text {
+  display: flex;
+  align-items: center;
+
+  .mat-icon {
+    margin-right: 1rem;
+  }
+}
+
+
+
+/* Form field
+ *============================================================================*/
+
+.mat-mdc-form-field {
+  margin: 1rem 0;
+}
+
+.mat-mdc-select {
+  font-size: 14px;
+}
+
+.mat-mdc-form-field-subscript-wrapper:not(:has(mat-hint)) {
+  display: none;
+}
+
+.mat-mdc-form-field-infix {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  min-height: unset;
+}
+
+
+
+/* Buttons
+ *============================================================================*/
+
+.mat-hint {
+  color: var(--panel-secondary);
+}
+
+
+
+/* Radio
+ *============================================================================*/
+
+.mat-radio-group {
+  display: block;
+}
+
+.mat-radio-container {
+  margin: 0 4px;
+}
+
+
+
+/* Slide toggle
+ *============================================================================*/
+
+.mat-slide-toggle.mat-slide-toggle {
+  overflow: hidden; // it was causing unnecessary overflows on parents
+  padding: 1px 2px;
+}
+
+.mat-slide-toggle-thumb.mat-slide-toggle-thumb {
+  background-color: var(--panel-theme);
+  border: 1px solid var(--panel-secondary);
+}
+
+.mat-slide-toggle-bar.mat-slide-toggle-bar {
+  background-color: var(--panel-tertiary);
+
+  .mat-checked & {
+    background-color: var(--panel-tertiary);
+  }
+}
+
+
+
+/* Toolbar
+ *============================================================================*/
+
+.mat-toolbar {
+  background-color: var(--primary-theme);
+  color: var(--primary-primary);
+}
+
+.mat-toolbar-row.mat-toolbar-row,
+.mat-toolbar-single-row.mat-toolbar-single-row {
+  height: 64px;
+
+  @media (max-width: $screen-m) {
+    font-size: 16px;
+  }
+
+  span, button, a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+
+
+/* Table
+ *============================================================================*/
+
+.mat-sort-header-button.mat-sort-header-button {
+  text-align: left;
+}
+
+.ref-row:hover {
+  background-color: var(--primary-theme) !important;
+  color: var(--primary-primary) !important
+}
+
+// Mobile layout
+@media (max-width: $screen-s) {
+  .mat-mdc-header-row {
+    opacity : 0;
+    position: absolute;
+    z-index : -1;
+  }
+
+  .mat-mdc-row {
+    display: block;
+
+    &:not(:first-child) {
+      border-top: 1px solid var(--secondary);
+    }
+  }
+
+  .mat-mdc-cell,
+  .mat-column-actions,
+  .mat-column-check {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: baseline;
+    border: none !important;
+    max-width: unset !important;
+    padding: 8px !important;
+    text-align: right;
+
+    &:before {
+      content: attr(data-label);
+      text-align: left;
+      order: 2;
+    }
+
+    &:after {
+      content: "";
+      flex: 1;
+      order: 1;
+      border-top: 1px dashed var(--tertiary);
+      margin: 0 16px;
+      height: .35em;
+      opacity: .75;
+    }
+  }
+}
+
+
+
+/* Checkbox
+ *============================================================================*/
+
+.mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled~.mdc-checkbox__background .mdc-checkbox__checkmark {
+  color: var(--primary-primary) !important;
+}
+.mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled~.mdc-checkbox__background .mdc-checkbox__mixedmark {
+  border-color: var(--primary-primary) !important;
+}
+
+
+
+/* Snackbar
+ *============================================================================*/
+
+.mat-snack-bar-container {
+  background: var(--primary-theme);
+  color: var(--primary-secondary);
+
+  .mat-simple-snackbar-action {
+    color: var(--primary-primary);
+  }
+}
+
+.mat-snack-bar-container.snack-bar-error {
+  background: var(--warn-theme);
+  color: var(--warn-secondary);
+
+  .mat-simple-snackbar-action {
+    color: var(--warn-primary);
+  }
+}
+
+
+
+/* Progress bar
+ *============================================================================*/
+
+.mat-progress-bar[mode="query"] > .mat-progress-bar-background,
+.mat-progress-bar[mode="determinate"] > .mat-progress-bar-background,
+.mat-progress-bar[mode="indeterminate"] > .mat-progress-bar-background {
+  display: none;
+}
+
+.mat-progress-bar-background {
+  display: none;
+}
+.mat-progress-bar-buffer {
+  display: none;
+}
+
+.mat-progress-bar.mat-accent {
+  & > .mat-progress-bar-buffer      { background: var(--accent-secondary); }
+  & > .mat-progress-bar-fill::after { background: var(--accent-theme); }
+  & > .mat-progress-bar-background  { fill      : var(--accent-theme); }
+}
+
+
+
+/* Card
+ *============================================================================*/
+
+.mat-mdc-card-content .mat-toolbar {
+  background-color: var(--panel-theme);
+  color: var(--panel-primary);
+}
+
+.mat-card {
+  --theme    : var(--panel-theme);
+  --primary  : var(--panel-primary);
+  --secondary: var(--panel-secondary);
+  --tertiary : var(--panel-tertiary );
+}
+.mat-card.mat-card {
+  box-shadow: 0 0 0 1px var(--panel-tertiary);
+  background: var(--panel-theme);
+  color: var(--panel-primary);
+}
+
+.mat-card-header.mat-card-header {
+  margin-top: -16px !important;
+  margin-right: -16px;
+  margin-bottom: 16px;
+  margin-left: -16px;
+  padding: 16px;
+  border-bottom: 1px solid var(--panel-tertiary);
+  align-items: center;
+}
+
+.mat-card-header-text.mat-card-header-text {
+  margin: 0;
+}
+
+.mat-card-actions.mat-card-actions {
+  margin-top: 16px !important;
+  margin-right: -16px;
+  margin-bottom: -16px;
+  margin-left: -16px;
+  padding: 16px;
+  border-top: 1px solid var(--panel-tertiary);
+}
+
+.mat-card-content.mat-card-content-inset {
+  margin-top: -16px !important;
+  margin-right: -16px;
+  margin-bottom: -16px !important;
+  margin-left: -16px;
+}
+
+
+
+/* Menu
+ *============================================================================*/
+
+.mat-menu-panel {
+  background-color: var(--panel-theme);
+}
+
+.mat-menu-item {
+  color: var(--panel-secondary);
+  .mat-icon {
+    color: var(--panel-secondary);
+  }
+
+  &:hover {
+    color: var(--panel-primary);
+    .mat-icon {
+      color: var(--panel-primary);
+    }
+  }
+}
+
+
+
+/* Autocomplete panel
+ *============================================================================*/
+
+.mat-autocomplete-panel {
+  background-color: var(--panel-theme);
+}
+
+
+
+/* Dialog
+ *============================================================================*/
+
+.mat-mdc-dialog-actions {
+  padding: 12px 24px 12px 24px !important;
+}
+
+
+
+// Temporary material fix
+// https://github.com/angular/components/issues/15880
+html.cdk-global-scrollblock {
+  position: initial !important;
+}

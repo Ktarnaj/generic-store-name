@@ -1,0 +1,32 @@
+.main-card {
+  padding: 0 !important;
+}
+
+.header-actions {
+  padding: var(--table-padding);
+  padding-left: 0;
+  border-bottom: 1px solid var(--tertiary);
+  max-height: 64px;
+
+  .mat-mdc-checkbox .mdc-form-field .mdc-checkbox {
+    margin-top: -8px;
+    margin-left: -8px;
+    padding: var(--table-padding);
+  }
+}
+
+.pagination {
+  height: 100%;
+  padding: var(--table-padding);
+  border-top: 1px solid var(--tertiary);
+
+  .mat-mdc-form-field {
+    margin: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .mat-cell .column-inner:not(:first-of-type) {
+    margin-right: 1rem;
+  }
+}

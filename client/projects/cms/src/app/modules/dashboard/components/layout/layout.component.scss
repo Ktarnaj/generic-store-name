@@ -1,0 +1,535 @@
+@import "../../../../../scss/breakpoints";
+
+/**
+ * Dashboard layout
+ *
+ * Styles for:
+ *   - Dashboard navigation container,
+ *   - Various navigation items,
+ *   - Dashboard main content container.
+ *
+ *============================================================================*/
+
+
+
+/* Navigation container
+ *============================================================================*/
+
+.dashboard-nav {
+  position: fixed;
+  z-index: 109;
+  left: calc(var(--sidebar-position) * 100%);
+  transform: translateX(calc(-1 * var(--sidebar-position) * var(--sidebar-width)));
+  top: 0;
+  width: var(--sidebar-width);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  background: var(--sidebar-theme);
+  color: var(--sidebar-contrast);
+  box-shadow: 0 0 0 1px var(--sidebar-border);
+
+  @media (max-width: $screen-m) {
+    width: var(--sidebar-width-mob);
+    transform: translateX(calc(-1 * var(--sidebar-position) * var(--sidebar-width-mob)));
+    transition: .4s;
+
+    &.dashboard-nav-expanded {
+      width: var(--sidebar-width);
+      transform: translateX(calc(-1 * var(--sidebar-position) * var(--sidebar-width)));
+    }
+  }
+}
+
+
+
+/* Navigation welcome section
+ *============================================================================*/
+
+.dashboard-nav-welcome {
+  background: var(--light-theme);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 128px;
+  min-height: 128px;
+  padding: 16px;
+
+  @media (max-width: $screen-m) {
+    height: 64px;
+    min-height: 64px;
+    padding: 0;
+  }
+
+  &-logo {
+    object-fit: contain;
+    height: 100%;
+    font-size: 28px;
+    margin: 0 auto;
+
+    max-width: 200px;
+
+    @media (max-width: $screen-m) {
+      display: none;
+    }
+  }
+
+  &-menu {
+    display: none;
+    cursor: pointer;
+    height: 64px;
+    min-height: 64px;
+    line-height: 64px;
+    width: var(--sidebar-width-mob);
+    text-align: center;
+
+    @media (max-width: $screen-m) {
+      display: block;
+    }
+  }
+}
+
+
+
+/* Navigation scroll area
+ *============================================================================*/
+
+.dashboard-nav-scrollable {
+  height: calc(100vh - 128px - calc(var(--sidebar-scaling) * 3)); // - nav header - nav footer
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  @media (max-width: $screen-m) {
+    height: calc(100vh - 64px - calc(var(--sidebar-scaling) * 3)); // - nav header - nav footer
+  }
+}
+
+
+
+/* Navigation main items
+ *============================================================================*/
+
+.dashboard-nav-link {
+  position: relative;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  height: calc(var(--sidebar-scaling) * 3);
+  min-height: calc(var(--sidebar-scaling) * 3);
+  padding: 0 var(--sidebar-scaling);
+  font-size: calc(var(--sidebar-scaling) - 2px);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  transition: .2s;
+
+  @media (max-width: $screen-m) {
+    padding: 0 calc(calc(var(--sidebar-width-mob) - calc(var(--sidebar-scaling) * 2)) / 2);
+  }
+
+  &.active {
+    background: var(--sidebar-active);
+  }
+
+  &:hover:not(.active) {
+    background: var(--sidebar-hover);
+  }
+
+  &-icon {
+    min-width: calc(var(--sidebar-scaling) * 2);
+    height: calc(var(--sidebar-scaling) * 2);
+    line-height: calc(var(--sidebar-scaling) * 2);
+    text-align: center;
+    border-radius: 4px;
+    color: var(--sidebar-accent);
+    background-color: var(--sidebar-active);
+  }
+
+  &-text {
+    margin-left: var(--sidebar-scaling);
+  }
+
+  &-tooltip {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    @media (max-width: $screen-m) {
+      display: block;
+
+      .dashboard-nav-expanded & {
+        display: none;
+      }
+    }
+  }
+}
+
+.dashboard-nav-empty {
+  position: relative;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  height: calc(var(--sidebar-scaling) * 2);
+  min-height: calc(var(--sidebar-scaling) * 2);
+  padding: 0 var(--sidebar-scaling);
+  font-size: calc(var(--sidebar-scaling) - 2px);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  transition: .2s;
+
+  @media (max-width: $screen-m) {
+    padding: 0 calc(calc(var(--sidebar-width-mob) - calc(var(--sidebar-scaling) * 2)) / 2);
+  }
+
+  &-icon {
+    min-width: calc(var(--sidebar-scaling) * 2);
+    height: calc(var(--sidebar-scaling) * 2);
+    line-height: calc(var(--sidebar-scaling) * 2);
+    text-align: center;
+    border-radius: 4px;
+    color: var(--sidebar-accent);
+    background-color: var(--sidebar-active);
+  }
+
+  &-text {
+    margin-left: var(--sidebar-scaling);
+  }
+
+  &-tooltip {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    @media (max-width: $screen-m) {
+      display: block;
+
+      .dashboard-nav-expanded & {
+        display: none;
+      }
+    }
+  }
+}
+
+.dashboard-nav-expandable {
+  transition: .2s;
+
+  &.active > .dashboard-nav-expandable-item {
+    height: calc(var(--sidebar-scaling) * 2.5);
+    min-height: calc(var(--sidebar-scaling) * 2.5);
+    opacity: 1;
+  }
+
+  &.active .dashboard-nav-expandable-label-arrow {
+    transform: rotate(-180deg);
+  }
+
+  &.active {
+    @media (max-width: $screen-m) {
+      margin: calc(var(--sidebar-scaling) * .5) 0;
+    }
+  }
+
+  &-label {
+    position: relative;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: calc(var(--sidebar-scaling) * 3);
+    min-height: calc(var(--sidebar-scaling) * 3);
+    padding: 0 var(--sidebar-scaling);
+    border: none;
+    outline: none;
+    background: none;
+    font-size: calc(var(--sidebar-scaling) - 2px);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    color: var(--sidebar-contrast);
+    transition: .2s;
+
+    @media (max-width: $screen-m) {
+      padding: 0 calc(calc(var(--sidebar-width-mob) - calc(var(--sidebar-scaling) * 2)) / 2);
+    }
+
+    &:hover {
+      background: var(--sidebar-hover);
+    }
+
+    &-icon {
+      min-width: calc(var(--sidebar-scaling) * 2);
+      height: calc(var(--sidebar-scaling) * 2);
+      line-height: calc(var(--sidebar-scaling) * 2);
+      text-align: center;
+      border-radius: 4px;
+      color: var(--sidebar-accent);
+      background-color: var(--sidebar-active);
+    }
+
+    &-text {
+      flex: 1;
+      text-align: left;
+      margin-left: var(--sidebar-scaling);
+    }
+
+    &-tooltip {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      @media (max-width: $screen-m) {
+        display: block;
+
+        .dashboard-nav-expanded & {
+          display: none;
+        }
+      }
+    }
+
+    &-arrow {
+      font-size: var(--sidebar-scaling);
+      line-height: calc(var(--sidebar-scaling) * 1.5);
+      width: calc(var(--sidebar-scaling) * 1.5);
+      height: calc(var(--sidebar-scaling) * 1.5);
+      transition: .2s;
+    }
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    white-space: nowrap;
+    margin-left: calc(var(--sidebar-scaling) * 2);
+    padding-left: var(--sidebar-scaling);
+    font-size: calc(var(--sidebar-scaling) - 2px);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    border-left: 1px solid var(--sidebar-dd-b);
+    color: var(--sidebar-contrast);
+    overflow: hidden;
+    transition: .2s;
+    height: 0;
+    min-height: 0;
+    opacity: 0;
+
+    @media (max-width: $screen-m) {
+      padding: 0 calc(calc(var(--sidebar-width-mob) - calc(var(--sidebar-scaling) * 2)) / 2);
+      margin-left: 0;
+      border-left: none;
+    }
+
+    &.active {
+      border-color: var(--sidebar-dd-b-a);
+      background-color: var(--sidebar-active);
+    }
+
+    &:hover:not(.active) {
+      background: var(--sidebar-hover);
+    }
+
+    &-icon {
+      display: none;
+
+      @media (max-width: $screen-m) {
+        display: block;
+        min-width: calc(var(--sidebar-scaling) * 2);
+        height: calc(var(--sidebar-scaling) * 2);
+        line-height: calc(var(--sidebar-scaling) * 2);
+        text-align: center;
+        border-radius: 4px;
+        color: var(--sidebar-accent);
+        background-color: var(--sidebar-active);
+      }
+    }
+
+    &-text {
+      margin-left: var(--sidebar-scaling);
+    }
+
+    &-tooltip {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      @media (max-width: $screen-m) {
+        display: block;
+
+        .dashboard-nav-expanded & {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.dashboard-nav-expanded {
+  &-label {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    height: 48px;
+    min-height: 48px;
+    padding-left: 16px;
+    border-right: 3px solid transparent;
+    transition: .2s;
+
+    &.active {
+      border-right: 3px solid var(--primary-theme);
+    }
+
+    @media (max-width: $screen-m) {
+      padding-left: 8px;
+    }
+
+    &-icon {
+      min-width: 24px;
+    }
+
+    &-text {
+      margin-left: 16px;
+    }
+  }
+
+  &-item {
+    position: relative;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    height: 32px;
+    min-height: 32px;
+    padding-left: 16px;
+    border-right: 3px solid transparent;
+    transition: .2s;
+
+    @media (max-width: $screen-m) {
+      padding-left: 8px;
+    }
+
+    &.active {
+      border-right: 3px solid var(--primary-theme);
+    }
+
+    &:hover {
+      background-color: var(--sidebar-hover);
+    }
+
+    &-icon {
+      min-width: 24px;
+    }
+
+    &-text {
+      margin-left: 16px;
+    }
+
+    &-tooltip {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      @media (max-width: $screen-m) {
+        display: block;
+
+        .dashboard-nav-expanded & {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+
+
+/* Navigation footer items
+ *============================================================================*/
+
+.dashboard-nav-footer {
+  position: relative;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  height: calc(var(--sidebar-scaling) * 3);
+  min-height: calc(var(--sidebar-scaling) * 3);
+  padding: 0 var(--sidebar-scaling);
+  background: var(--sidebar-theme);
+  color: var(--sidebar-contrast);
+  transition: .2s;
+
+  &.inactive {
+    pointer-events: none;
+  }
+
+  &.active {
+    background-color: var(--sidebar-active);
+  }
+
+  @media (max-width: $screen-m) {
+    padding: 0 calc(calc(var(--sidebar-width-mob) - calc(var(--sidebar-scaling) * 2)) / 2);
+  }
+
+  &:hover {
+    background: var(--sidebar-hover);
+  }
+
+  &-icon {
+    min-width: calc(var(--sidebar-scaling) * 2);
+    height: calc(var(--sidebar-scaling) * 2);
+    line-height: calc(var(--sidebar-scaling) * 2);
+    text-align: center;
+    border-radius: 4px;
+    color: var(--sidebar-accent);
+    background-color: var(--sidebar-active);
+  }
+
+  &-text {
+    font-size: calc(var(--sidebar-scaling) - 2px);
+    margin-left: var(--sidebar-scaling);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &-tooltip {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    @media (max-width: $screen-m) {
+      display: block;
+
+      .dashboard-nav-expanded & {
+        display: none;
+      }
+    }
+  }
+}
+
+
+
+/* Dashboard main content container
+ *============================================================================*/
+
+.dashboard-main {
+  padding: 0 calc(var(--sidebar-position) * var(--sidebar-width)) 0 calc(var(--sidebar-width) - calc(var(--sidebar-position) * var(--sidebar-width)));
+
+  @media (max-width: $screen-m) {
+    padding: 0 calc(var(--sidebar-position) * var(--sidebar-width-mob)) 0 calc(var(--sidebar-width-mob) - calc(var(--sidebar-position) * var(--sidebar-width-mob)));
+  }
+}
